@@ -351,6 +351,7 @@ h3 {
 }
 .plays .player-play {
   width: 50%;
+  margin: auto;
 }
 .plays img {
   width: 80px;

@@ -1,20 +1,23 @@
 const winnerMsg = document.querySelector('#winner-msg');
-const player1Score = document.querySelector('#player-score');
-const computerScore = document.querySelector('#computer-score');
-const playerPicks = document.querySelectorAll('#player-play .picks');
+const playerScoreEl = document.querySelector('#player-score');
+const computerScoreEl = document.querySelector('#computer-score');
+const playerPicksEl = document.querySelectorAll('#player-play .picks');
 
 let playerPick = '';
 let computerPick = '';
+let pScore = 0;
+let compScore = 0;
 
-playerPicks.forEach(pick => {
+playerPicksEl.forEach(pick => {
     
     pick.addEventListener('click', (e) => {
         playerPick = e.target.dataset.pick;
-        // console.log('Player: ' + playerPick);
+        
         getComputerPick();
-        let winner = scoreLogic(playerPick, computerPick);
+        let score = scoreLogic(playerPick, computerPick);
 
-        showWinnerStatus(winner, e);
+        showWinnerStatus(score.winner, e);
+        displayScores(score.playerScore, score.computerScore);
     });
 
 });
@@ -24,7 +27,6 @@ function getComputerPick() {
     const picksSetup = ['rock', 'paper', 'scissors'];
     const randomPick = Math.floor(Math.random() * (3 - 0)) + 0;
     computerPick = picksSetup[randomPick];
-    // console.log('Computer: ' + computerPick);
 }
 
 function scoreLogic(playerPick, compPick) {
@@ -35,40 +37,53 @@ function scoreLogic(playerPick, compPick) {
             if(compPick === 'scissors') {
                 winnerMsg.textContent = 'Rock beats Scissors. You Win!';
                 isWinner = true;
+                pScore++;
+
             } else if(compPick === 'rock') {
                 winnerMsg.textContent = 'Both chose Rock. It\'s a tie!';
+
             } else {
                 winnerMsg.textContent = 'Paper beats Scissors. You Lose!';
                 isWinner = false;
+                compScore++;
             }
             break;
         case 'scissors':
             if (compPick === 'paper') {
                 winnerMsg.textContent = 'Scissors beats Paper. You Win!';
                 isWinner = true;
+                pScore++;
+
             } else if (compPick === 'scissors') {
                 winnerMsg.textContent = 'Both chose Scissors. It\'s a tie!';
+
             } else {
                 winnerMsg.textContent = 'Rock beats Scissors. You Lose!';
                 isWinner = false;
+                compScore++;
             }
             break;
         case 'paper':
             if (compPick === 'rock') {
                 winnerMsg.textContent = 'Paper beats Rock. You Win!';
                 isWinner = true;
+                pScore++;
+
             } else if (compPick === 'paper') {
                 winnerMsg.textContent = 'Both chose Paper. It\'s a tie!';
+
             } else {
                 winnerMsg.textContent = 'Scissors beats Paper. You Lose!';
                 isWinner = false;
+                compScore++;
             }
             break;
     }
 
-    return isWinner;
+    return { winner: isWinner, playerScore: pScore, computerScore: compScore};
 }
 
+// Display winner and loser by changing colors.
 function showWinnerStatus(isWinner, event) {
     const allborders = document.querySelectorAll('.picks img');
 
@@ -83,4 +98,10 @@ function showWinnerStatus(isWinner, event) {
     if (isWinner === false) {
         event.target.classList.add('lose');
     }
+}
+
+// Display score
+function displayScores(plScore, cScore) {
+    playerScoreEl.textContent = plScore;
+    computerScoreEl.textContent = cScore;
 }

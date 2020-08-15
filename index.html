@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rock, Paper, Scissors</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700&display=swap" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Rock, Paper, Scissors</title>
+	<link rel="stylesheet" href="css/index.css">
+	<link href="https://fonts.googleapis.com/css?family=Dosis:400,700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Rock, Paper, Scissors</h1>
-    <h3 id="winner-msg"></h3>
-    <div class="container">
-        <div class="points">
-            <div class="players" id="player">
-                <p>Player: <span class="score" id="player-score">0</span></p>
-            </div>
-            <div class="players" id="computer">
-                <p>Computer: <span class="score" id="computer-score">0</span></p>
-            </div>
-        </div>
-        <div class="plays">
-            <div class="player-play">
-                <p id="player-play"><span class="picks"><img id="p1-rock" data-pick="rock" src="./images/rock.gif" alt="rock"></span> <span class="picks"><img id="p1-paper" data-pick="scissors" src="./images/scissors.png"></span> <span class="picks"><img id="p1-scissors" data-pick="paper" src="./images/paper.gif"></span></p>
-            </div>
-        </div>
-    </div>
-    <script src="./index.js"></script>
+	<h1>Rock, Paper, Scissors</h1>
+	<h3 id="winner-msg"></h3>
+	<div class="container">
+		<div class="points">
+			<div class="players" id="player">
+				<p>Player: <span class="score" id="player-score">0</span></p>
+			</div>
+			<div class="players" id="computer">
+				<p>Computer: <span class="score" id="computer-score">0</span></p>
+			</div>
+		</div>
+		<div class="plays">
+			<div class="player-play">
+				<p id="player-play"><span class="picks"><img id="p1-rock" data-pick="rock" src="./images/rock.gif" alt="rock"></span> <span class="picks"><img id="p1-paper" data-pick="scissors" src="./images/scissors.png"></span> <span class="picks"><img id="p1-scissors" data-pick="paper" src="./images/paper.gif"></span></p>
+			</div>
+		</div>
+		<div>
+			<h2 class="game-over">Game Over. <span id="game-status"></span></h2>
+		</div>
+	</div>
+	<script src="./index.js"></script>
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 const winnerMsg = document.querySelector('#winner-msg');
 const playerScoreEl = document.querySelector('#player-score');
 const computerScoreEl = document.querySelector('#computer-score');
+const newGameBtn = document.querySelector('#new-game');
 const playerPicksEl = document.querySelectorAll('#player-play .picks');
 
 let playerPick = '';
@@ -43,48 +44,56 @@ const scoreLogic = (playerPick, compPick) => {
 		case 'rock':
 			if (compPick === 'scissors') {
 				winnerMsg.textContent = 'Rock beats Scissors. You Win!';
-				isWinner = true;
+				isWinner = 1;
 				pScore += 1;
 
 			} else if (compPick === 'rock') {
 				winnerMsg.textContent = 'Both chose Rock. It\'s a tie!';
+				isWinner = 3;
 
 			} else {
 				winnerMsg.textContent = 'Paper beats Scissors. You Lose!';
-				isWinner = false;
+				isWinner = 0;
 				compScore += 1;
 			}
 			break;
 		case 'scissors':
 			if (compPick === 'paper') {
 				winnerMsg.textContent = 'Scissors beats Paper. You Win!';
-				isWinner = true;
+				isWinner = 1;
 				pScore += 1;
 
 			} else if (compPick === 'scissors') {
 				winnerMsg.textContent = 'Both chose Scissors. It\'s a tie!';
+				isWinner = 3;
 
 			} else {
 				winnerMsg.textContent = 'Rock beats Scissors. You Lose!';
-				isWinner = false;
+				isWinner = 0;
 				compScore += 1;
 			}
 			break;
 		case 'paper':
 			if (compPick === 'rock') {
 				winnerMsg.textContent = 'Paper beats Rock. You Win!';
-				isWinner = true;
+				isWinner = 1;
 				pScore += 1;
 
 			} else if (compPick === 'paper') {
+				isWinner = 3;
 				winnerMsg.textContent = 'Both chose Paper. It\'s a tie!';
 
 			} else {
 				winnerMsg.textContent = 'Scissors beats Paper. You Lose!';
-				isWinner = false;
+				isWinner = 0;
 				compScore += 1;
 			}
 			break;
+		default:
+			winnerMsg.textContent = '';
+			compScore = 0;
+			pScore = 0;
+			isWinner = undefined;
 	}
 
 	return { winner: isWinner, playerScore: pScore, computerScore: compScore };
@@ -97,13 +106,15 @@ const showWinnerStatus = (isWinner, event) => {
 	allborders.forEach(pick => {
 		pick.classList.remove('win');
 		pick.classList.remove('lose');
+		pick.classList.remove('tie');
 	});
 
-	if (isWinner) {
+	if (isWinner === 1) {
 		event.target.classList.add('win');
-	}
-	if (isWinner === false) {
+	} else if (isWinner === 0) {
 		event.target.classList.add('lose');
+	} else if (isWinner === 3) {
+		event.target.classList.add('tie');
 	}
 }
 
@@ -129,9 +140,37 @@ const checkGameOver = (roundWinner, player, computer) => {
 
 		return false;
 	}
+
 	return true;
 }
 
 playerPicksEl.forEach(pick => {
 	pick.addEventListener('click', playGame);
+});
+
+// Start a new game
+newGameBtn.addEventListener("click", () => {
+	const allborders = document.querySelectorAll('.picks img');
+	const gameOverMsg = document.querySelector('.game-over');
+
+	allborders.forEach(pick => {
+		pick.classList.remove('win');
+		pick.classList.remove('lose');
+	});
+
+	gameOverMsg.classList.remove('show-message');
+
+	playerPick = "";
+	compPick = "";
+
+	let score = scoreLogic(playerPick, compPick);
+	pScore = score.playerScore;
+	compScore = score.computerScore;
+
+	displayScores(pScore, compScore);
+	checkGameOver(rounds, pScore, compScore)
+
+	playerPicksEl.forEach(pick => {
+		pick.addEventListener('click', playGame);
+	});
 });

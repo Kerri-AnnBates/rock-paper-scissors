@@ -373,6 +373,9 @@ h3 {
 .plays img.lose {
   border-color: crimson;
 }
+.plays img.tie {
+  border-color: blue;
+}
 .plays .picks {
   display: inline-block;
 }

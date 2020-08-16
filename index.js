@@ -8,27 +8,32 @@ let computerPick = '';
 let pScore = 0;
 let compScore = 0;
 let rounds = 5;
+let isPlaying = true;
 
-playerPicksEl.forEach(pick => {
-	pick.addEventListener('click', (e) => {
-		playerPick = e.target.dataset.pick;
+const playGame = (e) => {
+	playerPick = e.target.dataset.pick;
 
-		getComputerPick();
-		let score = scoreLogic(playerPick, computerPick);
-		pScore = score.playerScore;
-		compScore = score.computerScore;
+	computerPick = getComputerPick();
+	let score = scoreLogic(playerPick, computerPick);
+	pScore = score.playerScore;
+	compScore = score.computerScore;
+	isPlaying = checkGameOver(rounds, pScore, compScore);
 
-		showWinnerStatus(score.winner, e);
-		displayScores(pScore, compScore);
-		checkGameOver(rounds, pScore, compScore);
-	});
+	showWinnerStatus(score.winner, e);
+	displayScores(pScore, compScore);
 
-});
+	if (!isPlaying) {
+		playerPicksEl.forEach(pick => {
+			pick.removeEventListener('click', playGame);
+		});
+	}
+}
+
 // Generate random number for computer pick
 const getComputerPick = () => {
 	const picksSetup = ['rock', 'paper', 'scissors'];
 	const randomPick = Math.floor(Math.random() * (3 - 0)) + 0;
-	computerPick = picksSetup[randomPick];
+	return picksSetup[randomPick];
 }
 
 const scoreLogic = (playerPick, compPick) => {
@@ -110,9 +115,23 @@ const displayScores = (plScore, cScore) => {
 
 // Get game winner
 const checkGameOver = (roundWinner, player, computer) => {
-	if (player === roundWinner) {
-		alert("Congratulations, you win!");
-	} else if (computer === roundWinner) {
-		alert("Sorry, you lose!");
+	let gameStatus = document.querySelector('#game-status');
+	const gameOverMsg = document.querySelector('.game-over');
+
+	if (player === roundWinner || computer === roundWinner) {
+		if (player === roundWinner) {
+			gameOverMsg.classList.add('show-message');
+			gameStatus.textContent = 'Congratulations, you win!';
+		} else if (computer === roundWinner) {
+			gameOverMsg.classList.add('show-message');
+			gameStatus.textContent = 'Sorry, you lose!';
+		}
+
+		return false;
 	}
+	return true;
 }
+
+playerPicksEl.forEach(pick => {
+	pick.addEventListener('click', playGame);
+});

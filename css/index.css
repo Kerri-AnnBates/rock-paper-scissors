@@ -379,3 +379,9 @@ h3 {
 .plays .picks:hover {
   cursor: pointer;
 }
+.game-over {
+  display: none;
+}
+.show-message {
+  display: block;
+}

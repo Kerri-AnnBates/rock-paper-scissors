@@ -312,9 +312,9 @@ html {
 }
 body {
   font-family: 'Dosis', sans-serif;
-}
-p {
   font-size: 1.8rem;
+  background-color: #07020d;
+  color: #fff;
 }
 h1,
 h2,
@@ -387,4 +387,12 @@ h3 {
 }
 .show-message {
   display: block;
+}
+#new-game {
+  padding: 1rem 2rem;
+  display: block;
+  margin: 2rem auto;
+}
+#new-game:hover {
+  cursor: pointer;
 }

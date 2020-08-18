@@ -48,7 +48,7 @@ const scoreLogic = (playerPick, compPick) => {
 				pScore += 1;
 
 			} else if (compPick === 'rock') {
-				winnerMsg.textContent = 'Both chose Rock. It\'s a tie!';
+				winnerMsg.textContent = 'Both chose Rock. It\'s a tie. Try again!';
 				isWinner = 3;
 
 			} else {
@@ -64,7 +64,7 @@ const scoreLogic = (playerPick, compPick) => {
 				pScore += 1;
 
 			} else if (compPick === 'scissors') {
-				winnerMsg.textContent = 'Both chose Scissors. It\'s a tie!';
+				winnerMsg.textContent = 'Both chose Scissors. It\'s a tie. Try again!';
 				isWinner = 3;
 
 			} else {
@@ -81,7 +81,7 @@ const scoreLogic = (playerPick, compPick) => {
 
 			} else if (compPick === 'paper') {
 				isWinner = 3;
-				winnerMsg.textContent = 'Both chose Paper. It\'s a tie!';
+				winnerMsg.textContent = 'Both chose Paper. It\'s a tie. Try again!';
 
 			} else {
 				winnerMsg.textContent = 'Scissors beats Paper. You Lose!';

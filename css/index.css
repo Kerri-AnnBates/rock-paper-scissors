@@ -344,6 +344,7 @@ h3 {
   padding: 2rem 0;
   color: #fdecfd;
   text-align: center;
+  font-size: 2.5rem;
 }
 .points #player {
   background: #7A0A75;
@@ -388,10 +389,16 @@ h3 {
 .show-message {
   display: block;
 }
+header {
+  text-align: center;
+}
 #new-game {
   padding: 1rem 2rem;
   display: block;
   margin: 2rem auto;
+  background: transparent;
+  border: 1px solid #62D934;
+  color: #fff;
 }
 #new-game:hover {
   cursor: pointer;
